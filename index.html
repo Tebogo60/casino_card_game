@@ -3,24 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Casino Cards Game</title>
+    <title>Casino | Cards Game</title>
 
+    <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="table">
-      <div id="player1">
-        <div class="row"></div>
+    <main>
+      <div class="board">
+        <div class="container">
+          <div class="center deck_of_cards"></div>
+          <div class="top">
+            <div class="playing_cards a_cards"></div>
+          </div>
+          <div class="center_board"></div>
+          <div class="bottom"></div>
+        </div>
       </div>
-      <div id="player2">
-        <div class="row"></div>
-      </div>
-      <div class="" id="board"></div>
-      <div id="deck"></div>
-    </div>
+    </main>
 
-    <script src="js/variables.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/gameLogic.js"></script>
+    <script src="js/initialVariable.js"></script>
+    <script src="js/fontMineScript.js"></script>
+    <script src="js/logicV0[02].js"></script>
   </body>
 </html>
