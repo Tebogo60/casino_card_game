@@ -11,27 +11,11 @@ const suitSvg = [
 const cards = document.querySelector(".a_cards");
 const card = document.querySelectorAll(".s_card");
 const deckOfCards = document.querySelector(".deck_of_cards");
+const deckOfCardsChildren = deckOfCards.children;
 
 const topCards = document.querySelector(".top");
 const centerBoard = document.querySelector(".center_board");
 const bottomCards = document.querySelector(".bottom");
 
-const gameCards = () => {
-  for (let i = 0; i < suits.length; i++) {
-    for (let j = 1; j <= 10; j++) {
-      if (j === 1) {
-        deckOfCards.innerHTML += `<div class="s_card ${suitsColors[i]} shadow-sm" id="A of ${suits[i]}"><span>A</span>${suitSvg[i]}</div>`;
-      } else {
-        deckOfCards.innerHTML += `<div class="s_card ${suitsColors[i]} shadow-sm" id="${j} of ${suits[i]}"><span>${j}</span>${suitSvg[i]}</div>`;
-      }
-    }
-  }
-};
-
-gameCards();
-
-const deckOfCardsChildren = deckOfCards.children;
-
-for (let i = 0; i < deckOfCardsChildren.length; i++) {
-  deckOfCardsChildren[i].style.top = `calc(50% - ${i * 2}px`;
-}
+// This is an array of all cards in the game!
+const allCards = [];
