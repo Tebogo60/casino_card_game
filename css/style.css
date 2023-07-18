@@ -28,6 +28,10 @@ main {
   height: inherit;
 }
 
+.outline-success {
+  outline: 4px solid var(--bs-success);
+}
+
 /* this code is used to position elements in the middle X & Y */
 
 .center {
@@ -53,6 +57,7 @@ main {
   height: 120px;
   border-radius: 12px;
   box-shadow: -1px 1px rgb(0, 0, 0, 0.2);
+  transition: 0.3s;
 }
 
 .s_card span {
@@ -120,8 +125,28 @@ main {
   height: 120px;
   transform: translateX(-50%);
   border-radius: 12px;
-  outline: 4px solid var(--bs-green);
+  outline: 4px solid transparent;
   transition: 0.3s;
+
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+}
+
+.top .s_card::after,
+.bottom .s_card::after {
+  content: "";
+
+  background: var(--bs-danger);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.bottom .s_card::after {
+  background: transparent;
 }
 
 .board .bottom {
@@ -129,9 +154,20 @@ main {
   bottom: 50px;
 }
 
-.board .top:hover,
 .board .bottom:hover {
   outline: 4px solid var(--bs-teal);
+}
+
+.bottom .s_card {
+  cursor: pointer;
+}
+
+.bottom .s_card:hover {
+  margin-left: -10px;
+}
+
+.bottom .s_card:nth-last-child(1):hover {
+  margin-left: 0;
 }
 
 /* this code allocates cards at the top or bottom */
@@ -141,7 +177,7 @@ main {
   margin-top: calc(-50vh + 120px - 8px - 2px);
   margin-left: calc(50vw - 85px);
   transform: none;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 .card-bottom {
@@ -149,5 +185,5 @@ main {
   margin-top: calc(50vh - 120px + 8px + 2px);
   margin-left: calc(50vw - 85px);
   transform: none;
-  transition: 0.5s;
+  transition: 0.3s;
 }

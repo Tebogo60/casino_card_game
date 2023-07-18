@@ -17,5 +17,14 @@ const topCards = document.querySelector(".top");
 const centerBoard = document.querySelector(".center_board");
 const bottomCards = document.querySelector(".bottom");
 
-// This is an array of all cards in the game!
+// Shuffle func Arrays
+const cardIndex = [];
+
+// Arrays of all cards in the game!
+const tempAllCards = [];
 const allCards = [];
+const allCardsId = [];
+
+const player1HoleCards = [];
+const botHoleCards = [];
+const board = [];
