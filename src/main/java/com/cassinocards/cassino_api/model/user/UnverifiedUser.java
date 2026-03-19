@@ -1,8 +1,6 @@
 package com.cassinocards.cassino_api.model.user;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,13 +25,9 @@ public class UnverifiedUser {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 100)
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotBlank
-    @Size(max = 255)
     @Column(name = "verification_token", nullable = false)
     private String verificationToken;
 
