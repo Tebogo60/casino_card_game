@@ -11,4 +11,5 @@ public interface UnverifiedUserRepository extends JpaRepository<UnverifiedUser, 
 
     Optional<UnverifiedUser> findUnverifiedUserByEmail(String email);
     Boolean existsAllByEmail(String email);
+//    Boolean validToken(String email, String token);
 }
