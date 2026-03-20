@@ -1,1 +1,6 @@
 .idea/
+target/
+testdb.mv.db
+*.log
+*.iml
+.env
