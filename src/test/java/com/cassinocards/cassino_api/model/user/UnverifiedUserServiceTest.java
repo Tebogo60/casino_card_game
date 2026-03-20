@@ -4,7 +4,7 @@ import com.cassinocards.cassino_api.model.user.dto.CreateUnverifiedUserDTO;
 import com.cassinocards.cassino_api.repository.user.UnverifiedUserRepository;
 import com.cassinocards.cassino_api.service.EmailService;
 import com.cassinocards.cassino_api.service.user.UnverifiedUserService;
-import com.cassinocards.cassino_api.model.user.exception.EmailAlreadyExistsException;
+import com.cassinocards.cassino_api.shared.exception.EmailAlreadyExistsException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

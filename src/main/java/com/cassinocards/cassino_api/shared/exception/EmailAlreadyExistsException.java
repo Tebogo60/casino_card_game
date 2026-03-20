@@ -1,4 +1,4 @@
-package com.cassinocards.cassino_api.model.user.exception;
+package com.cassinocards.cassino_api.shared.exception;
 
 public class EmailAlreadyExistsException extends RuntimeException {
     public EmailAlreadyExistsException(String email) {
