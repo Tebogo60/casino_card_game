@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table (
@@ -29,7 +30,7 @@ public class UnverifiedUser {
     private String email;
 
     @Column(name = "verification_token", nullable = false)
-    private String verificationToken;
+    private UUID verificationToken;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
