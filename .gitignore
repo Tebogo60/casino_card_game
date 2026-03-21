@@ -4,3 +4,4 @@ testdb.mv.db
 *.log
 *.iml
 .env
+application.properties
