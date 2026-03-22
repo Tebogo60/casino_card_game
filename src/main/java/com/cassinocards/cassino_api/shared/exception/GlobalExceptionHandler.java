@@ -32,4 +32,12 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .body(new AuthResponseDTO(ex.getMessage()));
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<AuthResponseDTO> handleUserNotFound(
+            UserNotFoundException ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new AuthResponseDTO(ex.getMessage()));
+    }
 }

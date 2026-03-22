@@ -42,4 +42,18 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+    public void sendPasswordResetEmail(String toEmail, UUID token) {
+        String subject = "Reset your password";
+        String resetLink = this.baseUrl + "/auth/reset-password?token=" + token;
+
+        String messageText = "Click the link to reset your password:\n" + resetLink;
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(messageText);
+
+        mailSender.send(message);
+    }
 }
