@@ -7,12 +7,10 @@ import com.cassinocards.cassino_api.model.user.dto.GetUnverifiedUserDTO;
 import com.cassinocards.cassino_api.service.user.UnverifiedUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.UUID;
 
 @RestController

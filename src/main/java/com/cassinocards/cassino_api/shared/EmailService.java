@@ -30,4 +30,16 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+    public void sendUserCreatedEmail(String toEmail) {
+        String subject = "Account created";
+        String messageText = "Your account has been created successfully.";
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(messageText);
+
+        mailSender.send(message);
+    }
 }
