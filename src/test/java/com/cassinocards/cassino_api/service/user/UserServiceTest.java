@@ -1,12 +1,16 @@
 package com.cassinocards.cassino_api.service.user;
 
 import com.cassinocards.cassino_api.model.user.AuthProvider;
+import com.cassinocards.cassino_api.model.user.PasswordResetToken;
 import com.cassinocards.cassino_api.model.user.User;
 import com.cassinocards.cassino_api.model.user.UserRole;
 import com.cassinocards.cassino_api.model.user.dto.CreateUserDTO;
+import com.cassinocards.cassino_api.model.user.dto.ForgotPasswordDTO;
+import com.cassinocards.cassino_api.repository.user.PasswordResetTokenRepository;
 import com.cassinocards.cassino_api.repository.user.UserRepository;
 import com.cassinocards.cassino_api.shared.EmailService;
 import com.cassinocards.cassino_api.shared.exception.UserFoundException;
+import com.cassinocards.cassino_api.shared.exception.UserNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -14,6 +18,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -32,6 +40,9 @@ class UserServiceTest {
 
     @InjectMocks
     private UserService userService;
+
+    @Mock
+    private PasswordResetTokenRepository passwordResetTokenRepository;
 
     private CreateUserDTO createDTO(String username, String email, String password) {
         return new CreateUserDTO(username, email, password);
@@ -100,5 +111,46 @@ class UserServiceTest {
         userService.save(dto);
 
         verify(emailService).sendUserCreatedEmail("test@example.com");
+    }
+
+    @Test
+    void forgotPassword_savesTokenAndSendsEmail() {
+        ForgotPasswordDTO dto = new ForgotPasswordDTO("john@example.com");
+
+        User user = User.builder()
+                .email("john@example.com")
+                .username("john_doe")
+                .build();
+
+        when(userRepository.findUserByEmail(dto.email()))
+                .thenReturn(Optional.of(user));
+
+        userService.forgotPassword(dto);
+
+        ArgumentCaptor<PasswordResetToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordResetToken.class);
+        verify(passwordResetTokenRepository).save(tokenCaptor.capture());
+
+        PasswordResetToken saved = tokenCaptor.getValue();
+        assertNotNull(saved.getToken());
+        assertEquals(user, saved.getUser());
+        assertTrue(saved.getExpiresAt().isAfter(LocalDateTime.now()));
+
+        verify(emailService).sendPasswordResetEmail(
+                eq(dto.email()), any(UUID.class));
+    }
+
+    @Test
+    void forgotPassword_throwsException_whenEmailNotFound() {
+        ForgotPasswordDTO dto = new ForgotPasswordDTO("unknown@example.com");
+
+        when(userRepository.findUserByEmail(dto.email()))
+                .thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class,
+                () -> userService.forgotPassword(dto));
+
+        verify(passwordResetTokenRepository, never()).save(any());
+        verify(emailService, never()).sendPasswordResetEmail(any(), any());
     }
 }
