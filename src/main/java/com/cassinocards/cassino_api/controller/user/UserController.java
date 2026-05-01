@@ -3,15 +3,15 @@ package com.cassinocards.cassino_api.controller.user;
 import com.cassinocards.cassino_api.model.user.dto.AuthResponseDTO;
 import com.cassinocards.cassino_api.model.user.dto.CreateUserDTO;
 import com.cassinocards.cassino_api.model.user.dto.ForgotPasswordDTO;
+import com.cassinocards.cassino_api.model.user.dto.ResetPasswordDTO;
 import com.cassinocards.cassino_api.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -36,5 +36,15 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new AuthResponseDTO("Password reset email sent"));
+    }
+
+    @PutMapping("/reset-password")
+    public ResponseEntity<AuthResponseDTO> resetPassword(
+            @Valid @RequestBody ResetPasswordDTO dto) {
+        userService.resetPassword(dto);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new AuthResponseDTO("Password reset successfully"));
     }
 }

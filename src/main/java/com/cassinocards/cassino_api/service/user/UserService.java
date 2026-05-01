@@ -6,10 +6,11 @@ import com.cassinocards.cassino_api.model.user.User;
 import com.cassinocards.cassino_api.model.user.UserRole;
 import com.cassinocards.cassino_api.model.user.dto.CreateUserDTO;
 import com.cassinocards.cassino_api.model.user.dto.ForgotPasswordDTO;
+import com.cassinocards.cassino_api.model.user.dto.ResetPasswordDTO;
 import com.cassinocards.cassino_api.repository.user.PasswordResetTokenRepository;
-import com.cassinocards.cassino_api.repository.user.UnverifiedUserRepository;
 import com.cassinocards.cassino_api.repository.user.UserRepository;
 import com.cassinocards.cassino_api.shared.EmailService;
+import com.cassinocards.cassino_api.shared.exception.InvalidTokenException;
 import com.cassinocards.cassino_api.shared.exception.UserFoundException;
 import com.cassinocards.cassino_api.shared.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -59,5 +60,26 @@ public class UserService {
 
         passwordResetTokenRepository.save(resetToken);
         emailService.sendPasswordResetEmail(dto.email(), resetToken.getToken());
+    }
+
+    public Boolean isExpired(LocalDateTime expiredAt) {
+        return expiredAt.isBefore(LocalDateTime.now());
+    }
+
+    public void resetPassword(ResetPasswordDTO dto) {
+        PasswordResetToken resetToken = passwordResetTokenRepository
+                .findByToken(dto.token())
+                .orElseThrow(() -> new InvalidTokenException(dto.token()));
+
+        if (isExpired(resetToken.getExpiresAt())) {
+            throw new InvalidTokenException(dto.token());
+        }
+
+        User user = resetToken.getUser();
+        user.setPassword(passwordEncoder.encode(dto.password()));
+        userRepository.save(user);
+
+        emailService.sendUserPasswordChangedEmail(user.getEmail());
+        passwordResetTokenRepository.delete(resetToken);
     }
 }
