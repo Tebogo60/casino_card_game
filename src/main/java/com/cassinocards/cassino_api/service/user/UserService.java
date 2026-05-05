@@ -12,6 +12,8 @@ import com.cassinocards.cassino_api.shared.exception.InvalidTokenException;
 import com.cassinocards.cassino_api.shared.exception.UserFoundException;
 import com.cassinocards.cassino_api.shared.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,9 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final PasswordResetTokenRepository passwordResetTokenRepository;
+
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     public void save(CreateUserDTO dto) {
 
@@ -46,9 +51,21 @@ public class UserService {
         emailService.sendUserCreatedEmail(dto.email());
     }
 
-//    public LoginResponseDTO login(LoginRequestDTO dto) {
-//
-//    }
+    public LoginResponseDTO login(LoginRequestDTO dto) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        dto.email(),
+                        dto.password()
+                )
+        );
+
+        User user = userRepository.findUserByEmail(dto.email())
+                .orElseThrow(() -> new UserNotFoundException(dto.email()));
+
+        String token = jwtService.generateToken(user);
+
+        return new LoginResponseDTO(token, user.getEmail(), user.getRole().name());
+    }
 
     public void forgotPassword(ForgotPasswordDTO dto) {
         User user = userRepository.findUserByEmail(dto.email())

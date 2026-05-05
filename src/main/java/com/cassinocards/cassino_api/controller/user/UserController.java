@@ -1,9 +1,6 @@
 package com.cassinocards.cassino_api.controller.user;
 
-import com.cassinocards.cassino_api.model.user.dto.AuthResponseDTO;
-import com.cassinocards.cassino_api.model.user.dto.CreateUserDTO;
-import com.cassinocards.cassino_api.model.user.dto.ForgotPasswordDTO;
-import com.cassinocards.cassino_api.model.user.dto.ResetPasswordDTO;
+import com.cassinocards.cassino_api.model.user.dto.*;
 import com.cassinocards.cassino_api.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +24,11 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new AuthResponseDTO("User created successfully"));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO dto) {
+        return ResponseEntity.ok(userService.login(dto));
     }
 
     @PostMapping("/forgot-password")
