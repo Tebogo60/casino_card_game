@@ -4,9 +4,7 @@ import com.cassinocards.cassino_api.model.user.AuthProvider;
 import com.cassinocards.cassino_api.model.user.PasswordResetToken;
 import com.cassinocards.cassino_api.model.user.User;
 import com.cassinocards.cassino_api.model.user.UserRole;
-import com.cassinocards.cassino_api.model.user.dto.CreateUserDTO;
-import com.cassinocards.cassino_api.model.user.dto.ForgotPasswordDTO;
-import com.cassinocards.cassino_api.model.user.dto.ResetPasswordDTO;
+import com.cassinocards.cassino_api.model.user.dto.*;
 import com.cassinocards.cassino_api.repository.user.PasswordResetTokenRepository;
 import com.cassinocards.cassino_api.repository.user.UserRepository;
 import com.cassinocards.cassino_api.shared.EmailService;
@@ -47,6 +45,10 @@ public class UserService {
         userRepository.save(user);
         emailService.sendUserCreatedEmail(dto.email());
     }
+
+//    public LoginResponseDTO login(LoginRequestDTO dto) {
+//
+//    }
 
     public void forgotPassword(ForgotPasswordDTO dto) {
         User user = userRepository.findUserByEmail(dto.email())
