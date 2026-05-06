@@ -1,6 +1,7 @@
-package com.cassinocards.cassino_api.service.user;
+package com.cassinocards.cassino_api.shared.config;
 
 import com.cassinocards.cassino_api.model.user.User;
+import com.cassinocards.cassino_api.service.user.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,9 +1,9 @@
 package com.cassinocards.cassino_api.shared.config;
 
-import com.cassinocards.cassino_api.service.user.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,8 +22,7 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
 
     private static final String[] PUBLIC_ROUTES = {
-            "/api/v1/auth/**",   // login, register, forgot-password etc
-            "/h2-ui/**"          // H2 console (remove in production!)
+            "/api/v1/auth/**",
     };
 
     @Bean
@@ -35,6 +34,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // ← was missing!
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // ← add this line
                         .requestMatchers(PUBLIC_ROUTES).permitAll()
                         .anyRequest().authenticated()
                 )
