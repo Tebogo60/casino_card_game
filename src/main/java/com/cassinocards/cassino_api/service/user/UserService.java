@@ -39,6 +39,10 @@ public class UserService {
             throw new UserFoundException(dto.email());
         }
 
+        if (this.userRepository.existsByUsername(dto.username())) {
+            throw new UserFoundException(dto.username());
+        }
+
         User user = User.builder()
                 .username(dto.username())
                 .email(dto.email())
