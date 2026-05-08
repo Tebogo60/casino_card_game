@@ -14,12 +14,12 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
-    @Value("${app.base-url}")
-    private String baseUrl;
+    @Value("${frontend.url}")
+    private String frontEndUrl;
 
     public void sendVerificationEmail(String toEmail, UUID token) {
         String subject = "Verify your account";
-        String verificationLink = this.baseUrl + "/auth/verify?token=" + token;
+        String verificationLink = this.frontEndUrl + "/verify?token=" + token;
 
         String messageText = "Click the link to verify your account:\n" + verificationLink;
 
@@ -57,7 +57,7 @@ public class EmailService {
 
     public void sendPasswordResetEmail(String toEmail, UUID token) {
         String subject = "Reset your password";
-        String resetLink = this.baseUrl + "/auth/reset-password?token=" + token;
+        String resetLink = this.frontEndUrl + "/reset-password?token=" + token;
 
         String messageText = "Click the link to reset your password:\n" + resetLink;
 
