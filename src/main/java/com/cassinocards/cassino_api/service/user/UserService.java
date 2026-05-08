@@ -1,10 +1,10 @@
 package com.cassinocards.cassino_api.service.user;
 
+import com.cassinocards.cassino_api.dto.user.*;
 import com.cassinocards.cassino_api.model.user.AuthProvider;
 import com.cassinocards.cassino_api.model.user.PasswordResetToken;
 import com.cassinocards.cassino_api.model.user.User;
 import com.cassinocards.cassino_api.model.user.UserRole;
-import com.cassinocards.cassino_api.model.user.dto.*;
 import com.cassinocards.cassino_api.repository.user.PasswordResetTokenRepository;
 import com.cassinocards.cassino_api.repository.user.UserRepository;
 import com.cassinocards.cassino_api.shared.EmailService;

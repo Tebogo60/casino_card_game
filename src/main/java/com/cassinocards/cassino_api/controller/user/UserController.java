@@ -1,6 +1,6 @@
 package com.cassinocards.cassino_api.controller.user;
 
-import com.cassinocards.cassino_api.model.user.dto.*;
+import com.cassinocards.cassino_api.dto.user.*;
 import com.cassinocards.cassino_api.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

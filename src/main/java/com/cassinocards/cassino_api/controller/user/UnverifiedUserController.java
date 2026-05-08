@@ -1,9 +1,9 @@
 package com.cassinocards.cassino_api.controller.user;
 
 import com.cassinocards.cassino_api.model.user.UnverifiedUser;
-import com.cassinocards.cassino_api.model.user.dto.AuthResponseDTO;
-import com.cassinocards.cassino_api.model.user.dto.CreateUnverifiedUserDTO;
-import com.cassinocards.cassino_api.model.user.dto.GetUnverifiedUserDTO;
+import com.cassinocards.cassino_api.dto.user.AuthResponseDTO;
+import com.cassinocards.cassino_api.dto.user.CreateUnverifiedUserDTO;
+import com.cassinocards.cassino_api.dto.user.GetUnverifiedUserDTO;
 import com.cassinocards.cassino_api.service.user.UnverifiedUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

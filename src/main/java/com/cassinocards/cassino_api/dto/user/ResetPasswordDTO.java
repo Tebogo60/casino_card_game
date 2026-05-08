@@ -1,6 +1,5 @@
-package com.cassinocards.cassino_api.model.user.dto;
+package com.cassinocards.cassino_api.dto.user;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

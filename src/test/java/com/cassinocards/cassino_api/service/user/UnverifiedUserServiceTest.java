@@ -1,7 +1,7 @@
 package com.cassinocards.cassino_api.service.user;
 
 import com.cassinocards.cassino_api.model.user.UnverifiedUser;
-import com.cassinocards.cassino_api.model.user.dto.CreateUnverifiedUserDTO;
+import com.cassinocards.cassino_api.dto.user.CreateUnverifiedUserDTO;
 import com.cassinocards.cassino_api.repository.user.UnverifiedUserRepository;
 import com.cassinocards.cassino_api.shared.EmailService;
 import com.cassinocards.cassino_api.shared.exception.EmailAlreadyExistsException;

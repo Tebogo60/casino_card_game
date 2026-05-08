@@ -1,4 +1,4 @@
-package com.cassinocards.cassino_api.model.user.dto;
+package com.cassinocards.cassino_api.dto.user;
 
 public record LoginResponseDTO (
         String token,
