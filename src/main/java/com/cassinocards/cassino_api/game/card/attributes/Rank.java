@@ -1,5 +1,8 @@
 package com.cassinocards.cassino_api.game.card.attributes;
 
+import lombok.Getter;
+
+@Getter
 public enum Rank {
 
     ACE(1, "A"),
@@ -19,13 +22,5 @@ public enum Rank {
     Rank(int value, String symbol) {
         this.value = value;
         this.symbol = symbol;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public String getSymbol() {
-        return this.symbol;
     }
 }
