@@ -3,9 +3,11 @@ package com.cassinocards.cassino_api.game.card;
 import com.cassinocards.cassino_api.game.card.attributes.Color;
 import com.cassinocards.cassino_api.game.card.attributes.Rank;
 import com.cassinocards.cassino_api.game.card.attributes.Suit;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 public class Card {
 
     private Suit suit;
@@ -18,21 +20,17 @@ public class Card {
         this.rank = rank;
     }
 
-    public Suit getSuit() {
-        return suit;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public Rank getRank() {
-        return rank;
+    public int getValue() {
+        return rank.getValue();
     }
 
     @Override
     public String toString() {
         return rank.name() + "_OF_" + suit.name();
+    }
+
+    public String toShortString() {
+        return this.rank.getSymbol() + this.suit.name();
     }
 
     @Override
