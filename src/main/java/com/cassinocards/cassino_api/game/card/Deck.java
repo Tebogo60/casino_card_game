@@ -17,7 +17,7 @@ public class Deck {
         this.cards = new ArrayDeque<>(generate());
     }
 
-    // generate a card
+    // generate a deck
     private List<Card> generate() {
 
         List<Card> deck = new ArrayList<>(DESK_SIZE);
