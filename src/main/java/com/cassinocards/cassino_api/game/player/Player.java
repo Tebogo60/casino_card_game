@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 public class Player {
@@ -27,5 +28,16 @@ public class Player {
 
     public void addToCollection(List<Card> cards) {
         collection.addAll(cards);
+    }
+
+    public Optional<Card> getTopCollectionCard() {
+        if (collection.isEmpty()) return Optional.empty();
+        return Optional.of(collection.get(collection.size() - 1));
+    }
+
+    public void removeTopCollectionCard() {
+        if (!collection.isEmpty()) {
+            collection.remove(collection.size() - 1);
+        }
     }
 }

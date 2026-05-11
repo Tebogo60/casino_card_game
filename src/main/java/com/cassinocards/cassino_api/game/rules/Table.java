@@ -118,4 +118,21 @@ public class Table {
 
         tableCards.removeAll(selectedTableCards);
     }
+
+    public void extendBuild(Player player, Card handCard, List<Card> selectedTableCards, Card opponentTopCard) {
+        Build build = getBuildForPlayer(player)
+                .orElseThrow(() -> new IllegalActionException("No active build found for player"));
+
+        if (!selectedTableCards.isEmpty() && opponentTopCard != null) {
+            build.extend(player, handCard, selectedTableCards, opponentTopCard);
+        } else if (!selectedTableCards.isEmpty()) {
+            build.extend(player, handCard, selectedTableCards);
+        } else if (opponentTopCard != null) {
+            build.extend(player, handCard, opponentTopCard);
+        } else {
+            throw new IllegalActionException("Extension requires at least one table card or opponent top card");
+        }
+
+        tableCards.removeAll(selectedTableCards);
+    }
 }
