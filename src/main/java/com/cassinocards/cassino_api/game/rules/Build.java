@@ -16,6 +16,7 @@ public class Build {
     private final List<Card> cards;
     private final int targetValue;
 
+    // build for more than 2 cards
     public Build(Player owner, Card handCard, List<Card> tableCards) {
         if (tableCards.isEmpty()) {
             throw new IllegalActionException("A build requires at least one table card");
@@ -37,6 +38,7 @@ public class Build {
         this.owner = owner;
     }
 
+    // build when there's only 2 cards involved
     public Build(Player owner, Card handCard, Card tableCard) {
         if (handCard.getValue() != tableCard.getValue()) {
             throw new IllegalActionException(
@@ -54,7 +56,7 @@ public class Build {
 
     // extend: table cards + opponent top card
     public void extend(Player player, Card handCard, List<Card> tableCards, Card opponentTopCard) {
-        if (isNotOwner(player)) {
+        if (!isOwnedBy(player)) {
             throw new IllegalActionException("Player can only extend their own builds");
         }
 
@@ -67,7 +69,7 @@ public class Build {
 
     // extend: table cards only
     public void extend(Player player, Card handCard, List<Card> tableCards) {
-        if (isNotOwner(player)) {
+        if (!isOwnedBy(player)) {
             throw new IllegalActionException("Player can only extend their own builds");
         }
         if (tableCards.isEmpty()) {
@@ -82,7 +84,7 @@ public class Build {
 
     // extend: opponent top card only
     public void extend(Player player, Card handCard, Card opponentTopCard) {
-        if (isNotOwner(player)) {
+        if (!isOwnedBy(player)) {
             throw new IllegalActionException("Player can only extend their own builds");
         }
         if (opponentTopCard == null) {
@@ -119,11 +121,11 @@ public class Build {
         this.cards.addAll(extendCards);
     }
 
-    public void sortCards(List<Card> cards) {
+    private void sortCards(List<Card> cards) {
         cards.sort(Comparator.comparing(Card::getValue).reversed());
     }
 
-    private boolean isNotOwner(Player player) {
-        return !this.owner.equals(player);
+    public boolean isOwnedBy(Player player) {
+        return this.owner.equals(player);
     }
 }
