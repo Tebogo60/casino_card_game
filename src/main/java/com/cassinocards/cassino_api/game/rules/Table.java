@@ -51,7 +51,7 @@ public class Table {
         isFirstHand = firstHand;
     }
 
-    public void trail(Player player, Card handCard) {
+    public void place(Player player, Card handCard) {
         if (!firstActionTaken) {
             tableCards.add(handCard);
             firstActionTaken = true;
@@ -59,7 +59,7 @@ public class Table {
         }
 
         if (hasBuildForPlayer(player) && isFirstHand) {
-            throw new IllegalActionException("Cannot trail while you own an active build");
+            throw new IllegalActionException("Cannot place while you own an active build");
         }
 
         tableCards.add(handCard);
