@@ -10,8 +10,9 @@ import java.util.*;
 @Getter
 public class Deck {
 
-    public static final int DESK_SIZE = 40;
-    public final Deque<Card> cards;
+    private static final int DECK_SIZE = 40;
+    private final Deque<Card> cards;
+    private boolean deckShuffled = false;
 
     public Deck() {
         this.cards = new ArrayDeque<>(generate());
@@ -20,7 +21,7 @@ public class Deck {
     // generate a deck
     private List<Card> generate() {
 
-        List<Card> deck = new ArrayList<>(DESK_SIZE);
+        List<Card> deck = new ArrayList<>(DECK_SIZE);
 
         Map<Color, List<Suit>> colorSuit = new HashMap<>();
         colorSuit.put(Color.RED, new ArrayList<>(List.of(Suit.HEART, Suit.DIAMOND)));
@@ -36,8 +37,26 @@ public class Deck {
             }
         });
 
-        Collections.shuffle(deck);
         return deck;
+    }
+
+    public Card draw() {
+        if (!deckShuffled) {
+            shuffle();
+        }
+
+        if (cards.isEmpty()) {
+            throw new NoSuchElementException("Deck is empty");
+        }
+        return cards.pop();
+    }
+
+    public void shuffle() {
+        List<Card> list = new ArrayList<>(cards);
+        Collections.shuffle(list);
+        cards.clear();
+        cards.addAll(list);
+        deckShuffled = true;
     }
 
     public int remaining() {
