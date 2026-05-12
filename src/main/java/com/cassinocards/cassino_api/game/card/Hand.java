@@ -29,6 +29,10 @@ public class Hand {
         return cards.isEmpty();
     }
 
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
     @Override
     public String toString() {
         return cards.stream()
