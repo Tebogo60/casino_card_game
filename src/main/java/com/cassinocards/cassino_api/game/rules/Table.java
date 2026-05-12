@@ -4,10 +4,12 @@ import com.cassinocards.cassino_api.game.card.Card;
 import com.cassinocards.cassino_api.game.player.Player;
 import com.cassinocards.cassino_api.shared.exception.IllegalActionException;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
 
 @Getter
+@Setter
 public class Table {
 
     private final List<Card> tableCards;
@@ -17,12 +19,12 @@ public class Table {
     private boolean firstActionTaken;
     private boolean isFirstHand;
 
-    public Table() {
+    public Table(boolean isFirstHand) {
         this.tableCards = new ArrayList<>();
         this.playerOneBuild = null;
         this.playerTwoBuild = null;
         this.firstActionTaken = false;
-        this.isFirstHand = true;
+        this.isFirstHand = isFirstHand;
     }
 
     public List<Card> getCards() {
@@ -70,6 +72,7 @@ public class Table {
             throw new IllegalActionException("Cannot capture this build, correct capture value: " + build.getTargetValue());
         }
 
+        player.getHand().take(captureCard);
         List<Card> captured = new ArrayList<>(build.getCards());
         captured.add(captureCard);
         player.addToCollection(captured);
@@ -81,15 +84,18 @@ public class Table {
         }
     }
 
-    public void captureCards(Player player, Card captureCard, List<Card> capturedCards) {
-        if (!isValidCapture(captureCard, capturedCards)) {
+    //capture table cards
+    public void captureCards(Player player, Card captureCard, List<Card> tableCards) {
+        if (!isValidCapture(captureCard, tableCards)) {
             throw new IllegalActionException("Cannot capture these cards, capture card value must be the sum of the cards");
         }
 
-        List<Card> allCaptured = new ArrayList<>(capturedCards);
+        player.getHand().take(captureCard);
+        List<Card> allCaptured = new ArrayList<>(tableCards);
         allCaptured.add(captureCard);
         player.addToCollection(allCaptured);
-        this.tableCards.removeAll(capturedCards);
+
+        this.tableCards.removeAll(tableCards);
     }
 
     public boolean isValidCapture(Card captureCard, List<Card> cards) {
@@ -103,6 +109,10 @@ public class Table {
             throw new IllegalActionException("Selected cards are not on the table");
         }
 
+        if (hasBuildForPlayer(player)) {
+            throw new IllegalActionException("Player already has an active build");
+        }
+
         Build newBuild;
         if (selectedTableCards.size() == 1 && selectedTableCards.getFirst().getValue() == handCard.getValue()) {
             newBuild = new Build(player, handCard, selectedTableCards.getFirst());
@@ -110,12 +120,19 @@ public class Table {
             newBuild = new Build(player, handCard, selectedTableCards);
         }
 
-        if (playerOneBuild == null || playerOneBuild.isOwnedBy(player)) {
+        int targetValue = newBuild.getTargetValue();
+        if ((playerOneBuild != null && playerOneBuild.getTargetValue() == targetValue) ||
+                (playerTwoBuild != null && playerTwoBuild.getTargetValue() == targetValue)) {
+            throw new IllegalActionException("A build with target value " + targetValue + " already exists");
+        }
+
+        if (playerOneBuild == null) {
             playerOneBuild = newBuild;
         } else {
             playerTwoBuild = newBuild;
         }
 
+        player.getHand().take(handCard);
         tableCards.removeAll(selectedTableCards);
     }
 
