@@ -31,6 +31,10 @@ public class Table {
         return Collections.unmodifiableList(tableCards);
     }
 
+    public void clearCards() {
+        this.tableCards.clear();
+    }
+
     public Optional<Build> getBuildForPlayer(Player player) {
         if (playerOneBuild != null && playerOneBuild.isOwnedBy(player)) {
             return Optional.of(playerOneBuild);
