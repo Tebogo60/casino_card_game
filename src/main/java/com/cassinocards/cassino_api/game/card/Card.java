@@ -13,15 +13,33 @@ public class Card {
     private Suit suit;
     private Color color;
     private Rank rank;
+    private int points;
 
     public Card(Suit suit, Color color, Rank rank) {
         this.suit = suit;
         this.color = color;
         this.rank = rank;
+        this.points = calculatePoints();
     }
 
     public int getValue() {
         return rank.getValue();
+    }
+
+    private int calculatePoints() {
+        if (rank.getValue() == 1) {
+            return 1;
+        }
+
+        if (rank.getValue() == 2 && suit == Suit.SPADES) {
+            return 1;
+        }
+
+        if (rank.getValue() == 10 && suit == Suit.DIAMOND) {
+            return 2;
+        }
+
+        return 0;
     }
 
     @Override
