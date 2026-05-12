@@ -5,18 +5,21 @@ import com.cassinocards.cassino_api.game.card.Hand;
 import com.cassinocards.cassino_api.game.state.PlayerState;
 import com.cassinocards.cassino_api.model.user.User;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Getter
+@Setter
 public class Player {
     private User user;
     private Hand hand;
     private List<Card> collection;
     private PlayerState state;
     private boolean lastCapturer;
+    private int finalScore;
 
     public Player(User user) {
         this.user = user;
