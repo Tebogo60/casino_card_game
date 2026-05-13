@@ -10,10 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(
-        name = "game_history",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "game_id")
-        }
+        name = "game_history"
 )
 @Getter
 @Setter
@@ -33,13 +30,15 @@ public class GameHistory {
     private String playerOneUsername;
 
     @Column(name = "player_one_score", nullable = false)
-    private String playerOneScore;
+    private int playerOneScore;
 
     @Column(name = "player_two_username", nullable = false)
     private String playerTwoUsername;
 
     @Column(name = "player_two_score", nullable = false)
-    private String playerTwoScore;
+    private int playerTwoScore;
+
+    private String winnerUsername;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

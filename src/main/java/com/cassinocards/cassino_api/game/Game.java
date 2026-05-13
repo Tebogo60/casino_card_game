@@ -14,11 +14,12 @@ import com.cassinocards.cassino_api.shared.exception.GameException;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class Game {
 
-    private final String gameId;
+    private final UUID gameId;
     private final Deck deck;
     private final Table table;
 
@@ -29,7 +30,7 @@ public class Game {
     private Player opponentPlayer;
     private Player winner;
 
-    public Game(String gameId) {
+    public Game(UUID gameId) {
         this.gameId = gameId;
         this.deck = new Deck();
         this.table = new Table(true);
