@@ -1,6 +1,6 @@
 package com.cassinocards.cassino_api.shared.exception;
 
-import com.cassinocards.cassino_api.dto.user.AuthResponseDTO;
+import com.cassinocards.cassino_api.dto.user.response.AuthResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

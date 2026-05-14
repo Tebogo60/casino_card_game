@@ -1,6 +1,11 @@
 package com.cassinocards.cassino_api.controller.user;
 
-import com.cassinocards.cassino_api.dto.user.*;
+import com.cassinocards.cassino_api.dto.user.request.CreateUserDTO;
+import com.cassinocards.cassino_api.dto.user.request.ForgotPasswordDTO;
+import com.cassinocards.cassino_api.dto.user.request.LoginRequestDTO;
+import com.cassinocards.cassino_api.dto.user.request.ResetPasswordDTO;
+import com.cassinocards.cassino_api.dto.user.response.AuthResponseDTO;
+import com.cassinocards.cassino_api.dto.user.response.LoginResponseDTO;
 import com.cassinocards.cassino_api.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

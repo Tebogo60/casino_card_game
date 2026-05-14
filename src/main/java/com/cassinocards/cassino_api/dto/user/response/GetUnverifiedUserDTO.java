@@ -1,4 +1,4 @@
-package com.cassinocards.cassino_api.dto.user;
+package com.cassinocards.cassino_api.dto.user.response;
 
 import java.util.UUID;
 

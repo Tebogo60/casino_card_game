@@ -1,4 +1,4 @@
-package com.cassinocards.cassino_api.dto.user;
+package com.cassinocards.cassino_api.dto.user.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
