@@ -1,4 +1,4 @@
-package com.cassinocards.cassino_api.dto.game;
+package com.cassinocards.cassino_api.dto.game.response;
 
 import com.cassinocards.cassino_api.game.card.Card;
 
